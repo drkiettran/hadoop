@@ -19,7 +19,7 @@ That is it for now.
 
 1. Create a bare VM with Centos 8
 2. Install Open JDK 8 with the latest version.
-3. Establish JAVA_HOME for the Open JDK.
+3. Establish JAVA_HOME for the Open JDK (`sudo alternatives --config java`)
 4. Edit /etc/hosts to create a FQDN `hadoop-master` entry with the host IP (varied).
 5. Create user account `hadoop` with password `hadoop`
 6. Shutdown `hadoop-master` VM
@@ -47,6 +47,7 @@ That is it for now.
 
     ```shellscript
     sudo systemctl stop firewalld
+    sudo systemctl disable firewalld
     ```
 
 4. Configuring key based login. Do this on hadoop master vm. Use blank passphrase
@@ -88,16 +89,44 @@ That is it for now.
     export HADOOP_CONF_DIR=/opt/hadoop/hadoop/conf
     ```
 
+    - .bashrc
+
+    ```shellscript
+    export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.262.b10-0.el8_2.x86_64
+    export HADOOP_HOME=/opt/hadoop/hadoop
+    export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+    ```
+
 8. Format namenode
 
     ```shellscript
     hdfs namenode -format
     ```
 
-9. Start Hadoop
+9. Start services
 
     ```shellscript
-    start-all.sh
+    start-dfs.sh
+    ```
+
+    ```shellscript
+    stop-dfs.sh
+    ```
+
+    ```shellscript
+    start-yarn.sh
+    ```
+
+    ```shellscript
+    stop-yarn.sh
+    ```
+
+    ```shellscript
+    mapred --daemon start historyserver
+    ```
+
+    ```shellscript
+    mapred --daemon stop historyserver
     ```
 
 10. Accessing hadoop cluster remotely
