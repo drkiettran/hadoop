@@ -158,3 +158,4 @@ For example,
 
 1. **hdfs-site.xml: data and name directories must be separate folders**
 2. **disable firewall in order to access to the website**
+3. **unless, you permanently disable the firealld, you needs to disable it from all VMs prior to start-all.sh**
