@@ -131,6 +131,15 @@ That is it for now.
 
 10. Accessing hadoop cluster remotely
 
+**update @hadoop-master /opt/hadoop/hadoop/etc/hadoop/hdfs-site.xml**
+
+```xml
+<property>
+  <name>dfs.permissions</name>
+  <value>false</value>
+</property>
+```
+
 I logged in as `student` account under my VM.
 
 - I ssh'ed into `hadoop-master` as the hadoop cluster account `hadoop`
