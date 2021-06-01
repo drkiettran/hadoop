@@ -25,7 +25,7 @@ That is it for now.
 6. Shutdown `hadoop-master` VM
 7. Clone (`full`) this VM for `hadoop-slave-1` and `hadoop-slave-2`
 8. Run `hadoop-slave-1` and `hadoop-slave-2`
-9. Run `ifconfig` to find their IP addresses.
+9. Run `ip a` to find their IP addresses.
 10. Edit `/etc/hosts` file and update the host names and IP addresses accordingly.
 11. Shutdown the VMs
 
@@ -97,7 +97,7 @@ That is it for now.
     export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
     ```
 
-8. Format namenode
+8. Format namenode. If the following command fails, make sure to remove this directory `/opt/hadoop/hadoop/dfs/name/current` using root or `wheel` group account (i.e. kiet).
 
     ```shellscript
     hdfs namenode -format
@@ -140,9 +140,16 @@ That is it for now.
 </property>
 ```
 
-I logged in as `student` account under my VM.
+I logged in as `student` account under my VM. I created an account `kiet` that is in the `wheel` groop. I nned to login this account to update `/etc/hosts` file in all three VMs. The password for my account starts with `P...`.
 
-- I ssh'ed into `hadoop-master` as the hadoop cluster account `hadoop`
+- I ssh'ed into `hadoop-master` as the hadoop cluster account `hadoop`. Note that you need to login directly to the `hadoop-master` VM to find its IP address using `ip a` command. In this example, the IP address is 192.168.1.22. I also updated `/etc/hosts` to reflect the IP addresses of `hadoop-master`, `hadoop-slave-1`, and `hadoop-slave-2`.
+
+```shell
+ssh hadoop@192.168.1.22
+```
+
+- I logged into `hadoop-slave-1` directly as `hadoop/hadoop`. I checked the IP `ip a`. I updated the `/etc/hosts` file according to reflect the correct IP addresses of `hadoop-master` and the other slave `hadoop-slave-1`. I repeated the same process for `hadoop-slave-2` box. I then rebooted both slave VMs `hadoop-slave-1` and `hadoop-slave-2`.
+
 - I created an hdfs folder `/user/student`:
 
     ```shellscript
